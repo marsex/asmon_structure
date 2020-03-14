@@ -1,5 +1,5 @@
 {
-  "git_url":"https://raw.githubusercontent.com/marsex/esp32-cam-asmon/master/structure/",
+  "git_url":"https://raw.githubusercontent.com/marsex/asmon_structure/master/structure/",
   "sys_info":"0.9.1.1",
   "wifi.py":"0.9.1.1",
   "update.py":"0.9.1.1",
