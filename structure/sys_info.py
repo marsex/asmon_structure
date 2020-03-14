@@ -1,4 +1,4 @@
-import urequests
+from structure import urequests
 import json
 
 def git_url():

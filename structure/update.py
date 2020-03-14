@@ -1,5 +1,5 @@
-from structure import color, sys_info
-import urequests, json
+from structure import color, sys_info, urequests
+import json
 
 def check(module_name):
   global git_sys_info, esp_sys_info, git_url
