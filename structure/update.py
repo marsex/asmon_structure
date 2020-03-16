@@ -79,11 +79,12 @@ def remote(file_name,file_dir,from_url):
     
 
 def read_remote(file_name,dir_url):
-  print(color.blue, '\Reading',file_name,'from',dir_url,'\n')
+  print(color.blue()+'\nReading',file_name,'from',dir_url,'\n')
   try:
     remote_file=urequests.get(dir_url+file_name)
+    print('got file\n', remote_file.text+color.normal())
     return remote_file
   except:
-    print(color.red, 'error reading remote file')
+    print(color.red, 'error reading remote file'+color.normal())
     return 'error reading remote file'
   
