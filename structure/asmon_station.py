@@ -1,16 +1,8 @@
 from structure import update, color, machine_data
-import socket
+import _thread as th
 from time import sleep
-import uerrno
 
 def start():
-  #handle_server()
-  try:
-    print('System running')
-  except:
-    print('ERROR starting System')
-
-def server_start():
   server_list = server_handler get_server_list()  
   host, port = server_list[0].split(':')
   
