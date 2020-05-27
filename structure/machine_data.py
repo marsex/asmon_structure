@@ -1,13 +1,23 @@
 import machine
 import dht
 import time
+import uerrno
 from machine import Pin
 
-inp_gpio=[35,34,39,36,3,21,19,18,5,17,16,4]
+inp_gpio=[35,34,39,36,21,19,18,5,17,16,4]
 out_gpio=[32,33,25,26,27,14,12,13]
 
 dht1 = dht.DHT22(Pin(15, Pin.IN, Pin.PULL_UP))
 dht2 = dht.DHT22(Pin(22, Pin.IN, Pin.PULL_UP))
+
+def gpio_pins():
+  return out_gpio, inp_gpio
+
+def out_pins():
+  return out_gpio
+
+def inp_pins():
+  return inp_gpio
 
 
 def set_double(arg1,arg2,arg3):
