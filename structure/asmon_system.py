@@ -62,7 +62,9 @@ def start_com(address,hola):
           buffer_data = client_socket.recv(2000)
           host_data = str(buffer_data)
           if host_data.find('null') == -1:
-            parse_data(host_data)
+            parsed_input = str(host_data[2:len(host_data)-1].replace("\'", "\""))
+            command_json = ujson.loads(parsed_input)
+            machine_data.parse_data(command_json)
           attempts = 0
           #print('\t\t\t\tGot response') 
           break
@@ -78,33 +80,3 @@ def start_com(address,hola):
     #print(color.red()+'\t}\n')
     #print(color.red()+'}'+color.normal())
     sleep(0.1)
-
-def parse_data(client_data):
-    print(client_data)
-  #try:
-    parsed_input = str(client_data[2:len(client_data)-1].replace("\'", "\""))
-    #print(parsed_input)
-    command_json = ujson.loads(parsed_input)
-    #print(command_json)
-
-    if command_json['command'] == 'output_state':
-      update = command_json['update'].split('=')
-      pin=int(update[0])-1
-      state=int(update[1])
-      out_gpio = machine_data.out_pins()
-      Pin(out_gpio[pin], value=state)
-
-    if command_json['command'] == 'dht1':
-      update = command_json['update'].split(',')
-      print(update)
-      for x in update:
-        objeto = x.split('=')
-        machine_data.set_double('dht1',objeto[0],objeto[1])
-        
-    if command_json['command'] == 'remote_update':
-      update_info = command_json['update'].split(',')
-      print('try to update', update_info)
-      from structure import update
-      update.remote(update_info[0],update_info[1],update_info[2])
-  #except:
-    #print('error reading json')

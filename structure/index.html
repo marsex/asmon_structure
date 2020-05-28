@@ -118,7 +118,7 @@ transform: translateX(10px);
 </style>
 <title>ESP32 Login</title>
 <body style="text-align: center;">
-	<iframe id="data_frame" STYLE='position:absolute; TOP:0px; LEFT:0px'height="6%" width="100%" src="iframe.html"></iframe>
+	<iframe id="data_frame" STYLE='position:absolute; TOP:0px; LEFT:0px'height="6%" width="100%" src=""></iframe>
 	<div class="cfg" style="display: inline-block;">
 		<h1>Configuracion red WIFI</h1>
 		<img src="logo.png"></img>
@@ -268,10 +268,20 @@ transform: translateX(10px);
     og_url = window.location.href
     document.getElementById('wifi_ssid').value = selected_ssid
     document.getElementById('wifi_psw').value = selected_psw
-    
     window.addEventListener('message', receiveMessage, false);
+
+    function data_com(){
+        console.log('sending data')
+      setTimeout(function(){
+        url_data = og_url + "?@data_com@end@"+ Math.random()
+        document.getElementById('data_frame').src = url_data
+        console.log('send data',url_data)
+      }, 250);
+    }
+    
     function receiveMessage(evt){
         document.getElementById('esp_data').value = evt.data;
+        console.log(evt.data)
     }
     
 	for (x=0;x<8;x++){
@@ -320,7 +330,7 @@ transform: translateX(10px);
 		
 		send_data(command,data)
 	}
-
+    
 </script>
 </body>
 </html>

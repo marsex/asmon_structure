@@ -28,6 +28,37 @@ def set_double(arg1,arg2,arg3):
     return 'error manipulating machine data, \narg1:', arg1, '\narg2:', arg2, '\narg3:', arg3
 
 
+def parse_data(command_json):
+    #print(client_data)
+  #try:
+    #parsed_input = str(client_data[2:len(client_data)-1].replace("\'", "\""))
+    #print(parsed_input)
+    #command_json = ujson.loads(client_data)
+    print(command_json)
+
+    if command_json['command'] == 'output_state':
+      update = command_json['update'].split('=')
+      pin=int(update[0])-1
+      state=int(update[1])
+      out_gpio = out_pins()
+      Pin(out_gpio[pin], value=state)
+
+    if command_json['command'] == 'dht1':
+      update = command_json['update'].split(',')
+      print(update)
+      for x in update:
+        objeto = x.split('=')
+        set_double('dht1',objeto[0],objeto[1])
+        
+    if command_json['command'] == 'remote_update':
+      update_info = command_json['update'].split(',')
+      print('try to update', update_info)
+      from structure import update
+      update.remote(update_info[0],update_info[1],update_info[2])
+  #except:
+    #print('error reading json')
+    
+    
 def get():
   global machine_data
   input_state = [Pin(i, Pin.IN).value() for i in inp_gpio]
