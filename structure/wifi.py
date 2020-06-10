@@ -16,10 +16,13 @@ def scan_networks():
         try:
             #print('Scanning networks')
             scan_list = station.scan()
-            #print(scan_list)
+            if len(scan_list) != 0:
+                print(scan_list)
+                break
         except:
             print('scan failed')
-        sleep(5)
+        sleep(3)
+    print('\n\nStopping Scan')
 
 def get_networks():
     global scan_list

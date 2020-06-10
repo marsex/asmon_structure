@@ -1,4 +1,34 @@
-import machine
+try:
+  import usocket as socket
+except:
+  import socket
+
+from machine import Pin
+import network
+
+import esp
+esp.osdebug(None)
+
+import gc
+gc.collect()
+
+ssid = '1255'
+password = '12551255'
+
+station = network.WLAN(network.STA_IF)
+
+station.active(True)
+station.connect(ssid, password)
+
+while station.isconnected() == False:
+  pass
+
+print('Connection successful')
+print(station.ifconfig())
+
+led = Pin(2, Pin.OUT)
+
+
 
 html = """<!DOCTYPE html>
 <html>
@@ -10,11 +40,10 @@ html = """<!DOCTYPE html>
 </body>
 </html>
 """
-imOpen = open('alogo.gif')
+imOpen = open('/structure/logo.png')
 image=imOpen.read()
 imOpen.close()
 
-import socket
 addr = socket.getaddrinfo('0.0.0.0', 80)[0][-1]
 
 s = socket.socket()
@@ -29,12 +58,17 @@ while True:
     while True:
         line = cl_file.readline()
         line2=str(line)
-        print(line2)
+        rr='nada'
         if not line or line == b'\r\n':
+            print(line)
             cl.write(html)
+            rr=' not line or line'
             #cl.close() commented, so that image can load
             break
         if line == b'GET /alogo.gif HTTP/1.1\r\n':
             cl.write(image)
+            rr='alogo'
             # cl.close() commented, so that image can load
             break
+    print(rr)
+    

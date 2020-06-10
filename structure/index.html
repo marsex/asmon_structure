@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html>
 <meta charset="utf-8" name="viewport" content= "width=device-width, user-scalable=no">
 <style type="text/css">
@@ -271,19 +270,24 @@ transform: translateX(10px);
     window.addEventListener('message', receiveMessage, false);
 
     function data_com(){
-        console.log('sending data')
-      setTimeout(function(){
-        url_data = og_url + "?@data_com@end@"+ Math.random()
-        document.getElementById('data_frame').src = url_data
-        console.log('send data',url_data)
-      }, 250);
+        console.log(data_frame.contentDocument.body.innerText)
     }
     
     function receiveMessage(evt){
         document.getElementById('esp_data').value = evt.data;
+        try{
+            com_data=evt.data;
+            
+        }catch (error) {
+            console.error(error);
+          // expected output: ReferenceError: nonExistentFunction is not defined
+          // Note - error messages will vary depending on browser
+        }
         console.log(evt.data)
+        
     }
     
+
 	for (x=0;x<8;x++){
 		pin='swi-'+x;
 		document.getElementById(pin).addEventListener('click', send_out);
@@ -309,7 +313,9 @@ transform: translateX(10px);
 		document.getElementById('data_frame').src = url_data
 	}
 	
-	function send_out(pin){send_output(document.getElementById(this.id))}
+	function send_out(pin){
+        send_output(document.getElementById(this.id))
+    }
 
 	function send_output(out){
 		pin=out.id
