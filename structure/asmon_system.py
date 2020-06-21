@@ -15,7 +15,7 @@ def start():
     try:
       address = socket.getaddrinfo(host, port)[0][-1]
       print(address)
-      th.start_new_thread(start_com,(address,"hola"))
+      th.start_new_thread(start_com,(address,))
     except:
       print(color.red()+'Error getting addr info from', host,port)
   else:
@@ -33,7 +33,7 @@ def get_server_list():
   except: 
     return ['null:null']
 
-def start_com(address,hola):
+def start_com(address):
   json_data = machine_data.create()
   while True:
     #print(color.blue()+'{')
